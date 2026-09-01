@@ -1,12 +1,17 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>My Book List</title>
+    <title>Filtered Books</title>
 </head>
 <body>
 
-    <h1>My Book List</h1>
-    <p>Prepared by: John Hermie T. Tatel</p>
+    @if ($genre === null)
+        <h1>All Books</h1>
+        <p>Showing {{ count($books) }} books.</p>
+    @else
+        <h1>{{ $genre }} Books</h1>
+        <p>Showing {{ count($books) }} book(s).</p>
+    @endif
 
     <table border="1" cellpadding="8">
         <tr>
@@ -20,13 +25,11 @@
         @foreach ($books as $book)
         <tr>
             <td>{{ $book['id'] }}</td>
-
             <td>
                 <a href="{{ route('books.show', $book['id']) }}">
                     {{ $book['title'] }}
                 </a>
             </td>
-
             <td>{{ $book['author'] }}</td>
             <td>{{ $book['year'] }}</td>
             <td>{{ $book['genre'] }}</td>
@@ -34,6 +37,12 @@
         @endforeach
 
     </table>
+
+    <br>
+
+    <p><strong>Prepared by:</strong> John Hermie T. Tatel</p>
+
+    <a href="{{ route('books.index') }}">⬅ Back to Books</a>
 
 </body>
 </html>
